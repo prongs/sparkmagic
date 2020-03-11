@@ -1,0 +1,11 @@
+<configuration>
+    <property><name>hadoop.proxyuser.hue.hosts</name><value>*d</value></property>
+    <property><name>fs.defaultFS</name><value>hdfs://ambari-master.c.balmy-gearing-250716.internal:34000</value></property>
+    <property><name>dfs.client.use.datanode.hostname</name><value>true</value></property>
+    <property><name>dfs.datanode.use.datanode.hostname</name><value>true</value></property>
+    <property><name>hadoop.proxyuser.hue.groups</name><value>*</value></property>
+    <property><name>hadoop.http.staticuser.user</name><value>root</value></property>
+    <property><name>hadoop.proxyuser.hue.hosts</name><value>*d</value></property>
+    <property><name>dfs.client.use.datanode.hostname</name><value>true</value></property>
+    <property><name>dfs.datanode.use.datanode.hostname</name><value>true</value></property>
+</configuration>

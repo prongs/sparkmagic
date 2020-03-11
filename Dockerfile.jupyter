@@ -43,7 +43,7 @@ USER root
 RUN chown $NB_USER /home/$NB_USER/.sparkmagic/config.json
 RUN rm -rf hdijupyterutils/ autovizwidget/ sparkmagic/
 
-CMD ["start-notebook.sh", "--NotebookApp.iopub_data_rate_limit=1000000000"]
+CMD ["start-notebook.sh", "--NotebookApp.iopub_data_rate_limit=1000000000", "--debug"]
 
-USER $NB_USER
+# USER $NB_USER
 

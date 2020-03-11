@@ -1,0 +1,5 @@
+<configuration>
+    <property><name>yarn.resourcemanager.hostname</name><value>ambari-master.c.balmy-gearing-250716.internal</value></property>
+    <property><name>yarn.timeline-service.hostname</name><value>ambari-master.c.balmy-gearing-250716.internal</value></property>
+    <property><name>yarn.resourcemanager.address</name><value>ambari-master.c.balmy-gearing-250716.internal:34026</value></property>
+</configuration>

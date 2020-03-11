@@ -8,6 +8,8 @@ services:
     hostname: spark
     ports:
       - "8998:8998"
+    environment:
+      - YARN_CONF_DIR=/etc/hadoop
   jupyter:
     image: jupyter/sparkmagic
     build:

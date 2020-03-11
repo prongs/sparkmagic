@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends --force-yes \
     python2.7 python2.7-setuptools \
     python3 python3-setuptools \
     r-base \
-    r-base-core && \
+    r-base-core \
+    procps wget curl telnet vim && \
     rm -rf /var/lib/apt/lists/*
 
 # Install pip for Python3
@@ -19,23 +20,30 @@ ENV PYTHONHASHSEED 0
 ENV PYTHONIOENCODING UTF-8
 ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 
-ENV SPARK_BUILD_VERSION 2.3.3
-ENV SPARK_HOME /apps/spark-$SPARK_BUILD_VERSION
+RUN pip install matplotlib pandas
+
+ENV SPARK_BUILD_VERSION 2.2.3
+ENV SPARK_HOME /apps/spark-${SPARK_BUILD_VERSION}-bin-hadoop2.7
 ENV SPARK_BUILD_PATH /apps/build/spark
-RUN mkdir -p /apps/build && \
-  cd /apps/build && \
-  git clone https://github.com/apache/spark.git spark && \
-  cd $SPARK_BUILD_PATH && \
-  git checkout v$SPARK_BUILD_VERSION && \
-  dev/make-distribution.sh --name spark-$SPARK_BUILD_VERSION -Phive -Phive-thriftserver -Pyarn && \
-  cp -r /apps/build/spark/dist $SPARK_HOME && \
-  rm -rf $SPARK_BUILD_PATH
+#RUN mkdir -p /apps/build && \
+#  cd /apps/build && \
+#  git clone https://github.com/apache/spark.git spark && \
+#  cd $SPARK_BUILD_PATH && \
+#  git checkout v$SPARK_BUILD_VERSION && \
+#  dev/make-distribution.sh --name spark-$SPARK_BUILD_VERSION -Phive -Phive-thriftserver -Pyarn && \
+#  cp -r /apps/build/spark/dist $SPARK_HOME && \
+#  rm -rf $SPARK_BUILD_PATH
+
+# RUN mkdir -p /apps/build && cd /apps && wget http://apachemirror.wuchna.com/spark/spark-2.2.3/spark-2.2.3-bin-hadoop2.7.tgz && tar -xvzf spark-2.2.3-bin-hadoop2.7.tgz
+RUN mkdir -p /apps/build && cd /apps && wget https://archive.apache.org/dist/spark/spark-2.2.3/spark-2.2.3-bin-hadoop2.7.tgz && tar -xvzf spark-2.2.3-bin-hadoop2.7.tgz
+# RUN mkdir -p /apps/build && cd /apps && wget https://archive.apache.org/dist/spark/spark-2.2.3/spark-2.2.3-bin-without-hadoop.tgz && tar -xvzf spark-2.2.3-bin-without-hadoop.tgz
 
 # ----------
 # Build Livy
 # ----------
-ENV LIVY_BUILD_VERSION 0.6.0-incubating
+ENV LIVY_BUILD_VERSION 0.7.1-incubating-SNAPSHOT
 ENV LIVY_APP_PATH /apps/apache-livy-$LIVY_BUILD_VERSION-bin
+ENV LIVY_CONF_PATH /apps/apache-livy-$LIVY_BUILD_VERSION-bin/conf/
 ENV LIVY_BUILD_PATH /apps/build/livy
 
 # Install setuptools for Python 2.7 for Livy
@@ -44,19 +52,28 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     rm get-pip.py && \
     python -m pip install --upgrade setuptools
 
-RUN cd /apps/build && \
-	git clone https://github.com/apache/incubator-livy.git livy && \
-	cd $LIVY_BUILD_PATH && \
-  git checkout v$LIVY_BUILD_VERSION-rc2 && \
-    mvn -DskipTests -Dspark.version=$SPARK_BUILD_VERSION clean package && \
-    ls -al $LIVY_BUILD_PATH && ls -al $LIVY_BUILD_PATH/assembly && ls -al $LIVY_BUILD_PATH/assembly/target && \
-    unzip $LIVY_BUILD_PATH/assembly/target/apache-livy-${LIVY_BUILD_VERSION}-bin.zip -d /apps && \
-    rm -rf $LIVY_BUILD_PATH && \
-	mkdir -p $LIVY_APP_PATH/upload && \
-  mkdir -p $LIVY_APP_PATH/logs
+#RUN cd /apps/build && \
+#	git clone https://github.com/apache/incubator-livy.git livy && \
+#	cd $LIVY_BUILD_PATH && \
+#  git checkout v$LIVY_BUILD_VERSION-rc2 && \
+#    mvn -DskipTests -Dspark.version=$SPARK_BUILD_VERSION clean package && \
+#    ls -al $LIVY_BUILD_PATH && ls -al $LIVY_BUILD_PATH/assembly && ls -al $LIVY_BUILD_PATH/assembly/target && \
+#    unzip $LIVY_BUILD_PATH/assembly/target/apache-livy-${LIVY_BUILD_VERSION}-bin.zip -d /apps && \
+#    rm -rf $LIVY_BUILD_PATH && \
+#	mkdir -p $LIVY_APP_PATH/upload && \
+#  mkdir -p $LIVY_APP_PATH/logs
 
-RUN pip install matplotlib
-RUN pip install pandas
+COPY apache-livy-bin.zip /
+RUN unzip apache-livy-bin.zip -d /apps && \
+        rm -rf $LIVY_BUILD_PATH && \
+    	mkdir -p $LIVY_APP_PATH/upload && \
+      mkdir -p $LIVY_APP_PATH/logs
+
+COPY livyconf/log4j.properties $LIVY_CONF_PATH/
+COPY livyconf/livy.conf $LIVY_CONF_PATH/
+COPY livyconf/spark-log4j.properties $SPARK_HOME/conf/log4j.properties
+COPY livyconf/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
+COPY livyconf/hadoop /etc/
 
 EXPOSE 8998
 

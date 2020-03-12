@@ -629,5 +629,8 @@
         <name>yarn.timeline-service.webapp.https.address</name>
         <value>ambari-node-1.c.balmy-gearing-250716.internal:34022</value>
     </property>
-
+    <property>
+        <name>hdp.version</name>
+        <value>2.6.5.1175-1</value>
+    </property>
 </configuration>

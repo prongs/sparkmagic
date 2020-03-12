@@ -76,5 +76,6 @@ COPY livyconf/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
 COPY livyconf/hadoop /etc/hadoop
 
 EXPOSE 8998
+EXPOSE 11000
 
 CMD $LIVY_APP_PATH/bin/livy-server

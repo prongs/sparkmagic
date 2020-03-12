@@ -73,7 +73,7 @@ COPY livyconf/log4j.properties $LIVY_CONF_PATH/
 COPY livyconf/livy.conf $LIVY_CONF_PATH/
 COPY livyconf/spark-log4j.properties $SPARK_HOME/conf/log4j.properties
 COPY livyconf/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
-COPY livyconf/hadoop /etc/
+COPY livyconf/hadoop /etc/hadoop
 
 EXPOSE 8998
 

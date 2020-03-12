@@ -41,7 +41,7 @@ RUN mkdir -p /apps/build && cd /apps && wget https://archive.apache.org/dist/spa
 # ----------
 # Build Livy
 # ----------
-ENV LIVY_BUILD_VERSION 0.7.1-incubating-SNAPSHOT
+ENV LIVY_BUILD_VERSION 0.7.0-incubating
 ENV LIVY_APP_PATH /apps/apache-livy-$LIVY_BUILD_VERSION-bin
 ENV LIVY_CONF_PATH /apps/apache-livy-$LIVY_BUILD_VERSION-bin/conf/
 ENV LIVY_BUILD_PATH /apps/build/livy

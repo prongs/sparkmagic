@@ -101,11 +101,6 @@
     </property>
 
     <property>
-        <name>yarn.nodemanager.address</name>
-        <value>0.0.0.0:34025</value>
-    </property>
-
-    <property>
         <name>yarn.nodemanager.admin-env</name>
         <value>MALLOC_ARENA_MAX=$MALLOC_ARENA_MAX</value>
     </property>
@@ -138,11 +133,6 @@
     <property>
         <name>yarn.nodemanager.aux-services.spark_shuffle.classpath</name>
         <value>/usr/hdp/${hdp.version}/spark/aux/*</value>
-    </property>
-
-    <property>
-        <name>yarn.nodemanager.bind-host</name>
-        <value>0.0.0.0</value>
     </property>
 
     <property>
@@ -291,11 +281,6 @@
     </property>
 
     <property>
-        <name>yarn.nodemanager.webapp.address</name>
-        <value>0.0.0.0:34050</value>
-    </property>
-
-    <property>
         <name>yarn.resourcemanager.address</name>
         <value>ambari-master.c.balmy-gearing-250716.internal:34026</value>
     </property>
@@ -308,11 +293,6 @@
     <property>
         <name>yarn.resourcemanager.am.max-attempts</name>
         <value>2</value>
-    </property>
-
-    <property>
-        <name>yarn.resourcemanager.bind-host</name>
-        <value>0.0.0.0</value>
     </property>
 
     <property>
@@ -488,11 +468,6 @@
     <property>
         <name>yarn.timeline-service.address</name>
         <value>ambari-node-1.c.balmy-gearing-250716.internal:34020</value>
-    </property>
-
-    <property>
-        <name>yarn.timeline-service.bind-host</name>
-        <value>0.0.0.0</value>
     </property>
 
     <property>

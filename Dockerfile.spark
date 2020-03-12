@@ -23,8 +23,7 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 RUN pip install matplotlib pandas
 
 ENV SPARK_BUILD_VERSION 2.2.3
-
-ENV SPARK_HOME /apps/spark-${SPARK_BUILD_VERSION}-bin-without-hadoop
+ENV SPARK_HOME /apps/spark-${SPARK_BUILD_VERSION}-bin-hadoop2.7
 ENV SPARK_BUILD_PATH /apps/build/spark
 #RUN mkdir -p /apps/build && \
 #  cd /apps/build && \
@@ -36,8 +35,8 @@ ENV SPARK_BUILD_PATH /apps/build/spark
 #  rm -rf $SPARK_BUILD_PATH
 
 # RUN mkdir -p /apps/build && cd /apps && wget http://apachemirror.wuchna.com/spark/spark-2.2.3/spark-2.2.3-bin-hadoop2.7.tgz && tar -xvzf spark-2.2.3-bin-hadoop2.7.tgz
-# RUN mkdir -p /apps/build && cd /apps && wget https://archive.apache.org/dist/spark/spark-2.2.3/spark-2.2.3-bin-hadoop2.7.tgz && tar -xvzf spark-2.2.3-bin-hadoop2.7.tgz
-RUN mkdir -p /apps/build && cd /apps && wget https://archive.apache.org/dist/spark/spark-2.2.3/spark-2.2.3-bin-without-hadoop.tgz && tar -xvzf spark-2.2.3-bin-without-hadoop.tgz
+RUN mkdir -p /apps/build && cd /apps && wget https://archive.apache.org/dist/spark/spark-2.2.3/spark-2.2.3-bin-hadoop2.7.tgz && tar -xvzf spark-2.2.3-bin-hadoop2.7.tgz
+# RUN mkdir -p /apps/build && cd /apps && wget https://archive.apache.org/dist/spark/spark-2.2.3/spark-2.2.3-bin-without-hadoop.tgz && tar -xvzf spark-2.2.3-bin-without-hadoop.tgz
 
 # ----------
 # Build Livy

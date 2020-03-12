@@ -8,6 +8,7 @@ services:
     hostname: spark
     ports:
       - "8998:8998"
+      - "11000:11000"
     environment:
       - YARN_CONF_DIR=/etc/hadoop
   jupyter:
@@ -21,4 +22,3 @@ services:
       - spark
     ports:
       - "8888:8888"
-      - "11000:11000"
